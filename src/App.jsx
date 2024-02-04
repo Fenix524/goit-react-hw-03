@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import "./App.css";
 import ContactList from "./components/ContactList/ContactList";
@@ -13,8 +13,16 @@ function App() {
     { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
   ];
 
-  const [userArr, setUserArr] = useState(testStartData);
+  const [userArr, setUserArr] = useState(
+    localStorage.getItem("userArr")
+      ? JSON.parse(localStorage.getItem("userArr"))
+      : testStartData
+  );
   const [searchFilters, setSearchFilters] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("userArr", JSON.stringify(userArr));
+  }, [userArr]);
 
   const onUserDeleate = (evt) => {
     setUserArr(
