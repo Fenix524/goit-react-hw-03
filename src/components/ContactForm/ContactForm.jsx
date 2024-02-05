@@ -5,63 +5,68 @@ import * as Yup from "yup";
 import { useId } from "react";
 
 const ContactForm = ({ handleSubmit }) => {
-  const userNameId = useId();
-  const userPhoneId = useId();
+  const contactNameId = useId();
+  const contactPhoneId = useId();
 
   const initialValues = {
-    username: "",
-    userphone: "",
+    contactname: "",
+    contactphone: "",
   };
 
   const FeedbackSchema = Yup.object().shape({
-    username: Yup.string()
+    contactname: Yup.string()
       .min(3, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
-    userphone: Yup.string()
+    contactphone: Yup.string()
       .min(3, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
   });
 
+  const onSubmit = (values, actions) => {
+    handleSubmit(values);
+    actions.resetForm();
+  }
+
   return (
     <div className="ContactForm">
       <Formik
         initialValues={initialValues}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         validationSchema={FeedbackSchema}
       >
         <Form className={css.form}>
           <div>
-            <label className={css.label} htmlFor={userNameId}>
+            <label className={css.label} htmlFor={contactNameId}>
               Імя
             </label>
             <Field
               className={css.field}
               type="text"
-              id={userNameId}
-              name="username"
+              id={contactNameId}
+              name="contactname"
             />
             <ErrorMessage
               className={css.errorMessage}
-              name="username"
+              name="contactname"
               component="span"
             />
           </div>
           <div>
-            <label className={css.label} htmlFor={userPhoneId}>
+            <label className={css.label} htmlFor={contactPhoneId}>
               Номер телефону
             </label>
             <Field
               className={css.field}
               type="text"
-              id={userPhoneId}
-              name="userphone"
+              id={contactPhoneId}
+              name="contactphone"
             />
 
             <ErrorMessage
               className={css.errorMessage}
-              name="userphone"
+              name="contactphone"
               component="span"
             />
           </div>

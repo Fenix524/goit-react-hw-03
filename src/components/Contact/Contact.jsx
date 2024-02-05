@@ -4,7 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { BsTelephoneFill } from "react-icons/bs";
 import { FaTrashCan } from "react-icons/fa6";
 
-const Contact = ({ id, name, number, onUserDeleate }) => {
+const Contact = ({ id, name, number, onContactDelete }) => {
   return (
     <div className={css.Contact} id={id}>
       <div>
@@ -17,9 +17,14 @@ const Contact = ({ id, name, number, onUserDeleate }) => {
           <p>{number}</p>
         </div>
       </div>
-      <button className={css.deleateBtn} onClick={onUserDeleate}>
+      <button
+        className={css.deleteBtn}
+        onClick={() => {
+          onContactDelete(id);
+        }}
+      >
         <FaTrashCan />
-        <p>Deleate</p>
+        <p>Delete</p>
       </button>
     </div>
   );
